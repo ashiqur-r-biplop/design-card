@@ -1,94 +1,103 @@
-const slider = document.querySelector(".testimonials-sliders");
-var w = window.innerWidth;
-console.log(w);
-const slides = document.querySelectorAll(
-  `${w > 520 ? ".testimonials-slide" : ".slide-inner"} `
-);
-const nextButton = document.getElementById("next");
-const prevButton = document.getElementById("prev");
+const testimonial_slider = document.querySelector(".testimonials-sliders");
+var testimonial_slider_w = window.innerWidth;
 
-let slideIndex = 0;
-let autoSlideInterval;
-let isAutoSliding = true; // Initially auto sliding is on
+const testimonialsSlides = document.querySelectorAll(
+  `${
+    testimonial_slider_w > 520
+      ? ".testimonials-slide"
+      : ".testimonials-slide-inner"
+  } `
+);
+const testimonialsNextButton = document.getElementById("testimonials-next");
+const testimonials_prevButton = document.getElementById("testimonials-prev");
+
+let testimonialsSlideIndex = 0;
+let testimonialsAutoSlideInterval;
+let testimonialsIsAutoSliding = true; // Initially auto sliding is on
 
 // Calculate slide width based on viewport
-const getSlideWidth = () => slides[0].offsetWidth;
+const testimonialsGetSlideWidth = () => testimonialsSlides[0].offsetWidth;
 
 // Update slider transform
-const updateSlider = () => {
-  slider.style.transform = `translateX(-${slideIndex * getSlideWidth()}px)`;
+const testimonialsUpdateSlider = () => {
+  testimonial_slider.style.transform = `translateX(-${
+    testimonialsSlideIndex * testimonialsGetSlideWidth()
+  }px)`;
 };
 
 // Move to next slide
-const nextSlide = () => {
-  slideIndex = (slideIndex + 1) % slides.length;
-  updateSlider();
+const testimonialsNextSlide = () => {
+  testimonialsSlideIndex =
+    (testimonialsSlideIndex + 1) % testimonialsSlides.length;
+  testimonialsUpdateSlider();
 };
 
 // Move to previous slide
-const prevSlide = () => {
-  slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-  updateSlider();
+const testimonialsPrevSlide = () => {
+  testimonialsSlideIndex =
+    (testimonialsSlideIndex - 1 + testimonialsSlides.length) %
+    testimonialsSlides.length;
+  testimonialsUpdateSlider();
 };
 
 // Auto slide
-const startAutoSlide = () => {
-  if (!isAutoSliding) return; // Only run if auto-sliding is enabled
-  autoSlideInterval = setInterval(() => {
-    if (isAutoSliding) nextSlide();
+const testimonialsStartAutoSlide = () => {
+  if (!testimonialsIsAutoSliding) return; // Only run if auto-sliding is enabled
+  testimonialsAutoSlideInterval = setInterval(() => {
+    if (testimonialsIsAutoSliding) testimonialsNextSlide();
   }, 3000);
 };
 
 // Stop auto slide
-const stopAutoSlide = () => {
-  clearInterval(autoSlideInterval);
+const testimonialsStopAutoSlide = () => {
+  clearInterval(testimonialsAutoSlideInterval);
 };
 
 // Next/Prev button clicks
-nextButton.addEventListener("click", () => {
-  stopAutoSlide(); // Stop auto-slide when button is clicked
-  nextSlide();
-  if (isAutoSliding) startAutoSlide(); // Re-enable auto-slide after button click
+testimonialsNextButton.addEventListener("click", () => {
+  testimonialsStopAutoSlide(); // Stop auto-slide when button is clicked
+  testimonialsNextSlide();
+  if (testimonialsIsAutoSliding) testimonialsStartAutoSlide(); // Re-enable auto-slide after button click
 });
-prevButton.addEventListener("click", () => {
-  stopAutoSlide(); // Stop auto-slide when button is clicked
-  prevSlide();
-  if (isAutoSliding) startAutoSlide(); // Re-enable auto-slide after button click
+testimonials_prevButton.addEventListener("click", () => {
+  testimonialsStopAutoSlide(); // Stop auto-slide when button is clicked
+  testimonialsPrevSlide();
+  if (testimonialsIsAutoSliding) testimonialsStartAutoSlide(); // Re-enable auto-slide after button click
 });
 
 // Hover effects (slider container)
-slider.addEventListener("mouseenter", () => {
-  isAutoSliding = false; // Stop auto-slide when hovering over the slider
-  stopAutoSlide();
+testimonial_slider.addEventListener("mouseenter", () => {
+  testimonialsIsAutoSliding = false; // Stop auto-slide when hovering over the slider
+  testimonialsStopAutoSlide();
 });
 
-slider.addEventListener("mouseleave", () => {
-  isAutoSliding = true; // Re-enable auto-slide when mouse leaves the slider
-  startAutoSlide();
+testimonial_slider.addEventListener("mouseleave", () => {
+  testimonialsIsAutoSliding = true; // Re-enable auto-slide when mouse leaves the slider
+  testimonialsStartAutoSlide();
 });
 
 // Hover effects (Next/Prev buttons)
-nextButton.addEventListener("mouseenter", () => {
-  isAutoSliding = false; // Stop auto-slide when hovering over Next button
-  stopAutoSlide();
+testimonialsNextButton.addEventListener("mouseenter", () => {
+  testimonialsIsAutoSliding = false; // Stop auto-slide when hovering over Next button
+  testimonialsStopAutoSlide();
 });
 
-prevButton.addEventListener("mouseenter", () => {
-  isAutoSliding = false; // Stop auto-slide when hovering over Prev button
-  stopAutoSlide();
+testimonials_prevButton.addEventListener("mouseenter", () => {
+  testimonialsIsAutoSliding = false; // Stop auto-slide when hovering over Prev button
+  testimonialsStopAutoSlide();
 });
 
-nextButton.addEventListener("mouseleave", () => {
-  if (isAutoSliding) startAutoSlide(); // Re-enable auto-slide when leaving Next button
+testimonialsNextButton.addEventListener("mouseleave", () => {
+  if (testimonialsIsAutoSliding) testimonialsStartAutoSlide(); // Re-enable auto-slide when leaving Next button
 });
 
-prevButton.addEventListener("mouseleave", () => {
-  if (isAutoSliding) startAutoSlide(); // Re-enable auto-slide when leaving Prev button
+testimonials_prevButton.addEventListener("mouseleave", () => {
+  if (testimonialsIsAutoSliding) testimonialsStartAutoSlide(); // Re-enable auto-slide when leaving Prev button
 });
 
 // Responsive handling
-const handleResize = () => {
-  updateSlider();
+const testimonialsHandleResize = () => {
+  testimonialsUpdateSlider();
 };
 
 const allDesCription = document.querySelectorAll("testimonial-description p");
@@ -128,17 +137,17 @@ allDescriptions.forEach((description, index) => {
   }
 });
 
-window.addEventListener("resize", handleResize);
+window.addEventListener("resize", testimonialsHandleResize);
 
 // Initialize slider
-updateSlider();
-startAutoSlide();
+testimonialsUpdateSlider();
+testimonialsStartAutoSlide();
 
 // video
 // Select all videos and play buttons
-const videoContainers = document.querySelectorAll(".video-box");
+const testimonials_videoContainers = document.querySelectorAll(".video-box");
 
-videoContainers.forEach((container) => {
+testimonials_videoContainers.forEach((container) => {
   const video = container.querySelector(".video");
   const playButton = container.querySelector(".play-button");
 
